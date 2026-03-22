@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pedido 💖</title>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      overflow: hidden;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    }
+
+    .tela {
+      display: none;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .ativa {
+      display: flex;
+    }
+
+    h1 {
+      font-size: 24px;
+      color: #fff;
+      margin-bottom: 20px;
+      padding: 0 10px;
+      animation: aparecer 1.5s ease;
+    }
+
+    @keyframes aparecer {
+      from {opacity: 0; transform: scale(0.8);}
+      to {opacity: 1; transform: scale(1);}
+    }
+
+    button {
+      padding: 15px 25px;
+      font-size: 18px;
+      border: none;
+      border-radius: 12px;
+      margin: 10px;
+      cursor: pointer;
+    }
+
+    #sim {
+      background-color: #ff4d6d;
+      color: white;
+    }
+
+    #nao {
+      background-color: #555;
+      color: white;
+      position: absolute;
+    }
+
+    video {
+      width: 90%;
+      max-width: 400px;
+      border-radius: 12px;
+      margin-top: 20px;
+      display: none;
+    }
+
+    /* Corações */
+    .heart {
+      position: absolute;
+      bottom: -20px;
+      font-size: 20px;
+      animation: subir 6s linear infinite;
+      opacity: 0.7;
+    }
+
+    @keyframes subir {
+      0% {
+        transform: translateY(0);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Corações -->
+  <script>
+    function criarCoracao() {
+      const coracao = document.createElement("div");
+      coracao.classList.add("heart");
+      coracao.innerHTML = "💖";
+
+      coracao.style.left = Math.random() * 100 + "vw";
+      coracao.style.fontSize = (Math.random() * 20 + 10) + "px";
+
+      document.body.appendChild(coracao);
+
+      setTimeout(() => {
+        coracao.remove();
+      }, 6000);
+    }
+
+    setInterval(criarCoracao, 400);
+  </script>
+
+  <!-- Tela 1 -->
+  <div id="tela1" class="tela ativa">
+    <h1>Raphaela quer namorar comigo? 💖</h1>
+    <button id="sim">Sim</button>
+    <button id="nao">Não</button>
+  </div>
+
+  <!-- Tela 2 -->
+  <div id="tela2" class="tela">
+    <h1>Agora tá casadaa cmg minha pilota de Kwid 🚗💖</h1>
+    <video id="video" src="video.mp4" controls></video>
+  </div>
+
+  <script>
+    const botaoNao = document.getElementById("nao");
+    const botaoSim = document.getElementById("sim");
+    const tela1 = document.getElementById("tela1");
+    const tela2 = document.getElementById("tela2");
+    const video = document.getElementById("video");
+
+    // Botão "Não" foge
+    botaoNao.addEventListener("click", () => {
+      const largura = window.innerWidth - botaoNao.offsetWidth;
+      const altura = window.innerHeight - botaoNao.offsetHeight;
+
+      const x = Math.random() * largura;
+      const y = Math.random() * altura;
+
+      botaoNao.style.left = x + "px";
+      botaoNao.style.top = y + "px";
+    });
+
+    // Botão "Sim"
+    botaoSim.addEventListener("click", () => {
+      tela1.classList.remove("ativa");
+      tela2.classList.add("ativa");
+
+      setTimeout(() => {
+        video.style.display = "block";
+        video.play();
+      }, 1500);
+    });
+  </script>
+
+</body>
+</html>
